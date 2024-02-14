@@ -63,4 +63,9 @@ public class Deck : IEnumerable<Card>
     {
         return GetEnumerator();
     }
+    //shuffling a deck
+    public void Shuffle()
+    {
+        IEnumerable<Card> deck2 = _cards;
+    }
 }
