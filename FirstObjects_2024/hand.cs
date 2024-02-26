@@ -2,14 +2,14 @@ using System.Collections;
 
 namespace FirstObjects_2024;
 
-public class hand //: IEnumerable<Card>
+public class Hand: IEnumerable<Card>
 {
    private readonly List<Card> _cards;
 
    private static readonly Random rand = new();
 
 //static means that it shared across all instances in this class
-   public hand()
+   public Hand()
    {
       _cards = new();
    }
@@ -34,6 +34,20 @@ public class hand //: IEnumerable<Card>
       return card;
    }
 
-   
- 
+   public IEnumerator<Card> GetEnumerator()
+   {
+      return _cards.GetEnumerator();
+   }
+
+   public override string ToString() =>
+      _cards
+         .Select(card => $"{card}")
+         .Aggregate((a, b) => $"{a}, {b}");
+
+   IEnumerator IEnumerable.GetEnumerator()
+   {
+      return ((IEnumerable)_cards).GetEnumerator();
+   }
 }
+
+
