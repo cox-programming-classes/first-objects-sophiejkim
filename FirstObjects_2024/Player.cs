@@ -1,3 +1,5 @@
+using System.Xml.Schema;
+
 namespace FirstObjects_2024;
 
 
@@ -8,6 +10,7 @@ public class Player
 
 
    public bool DidStand { get; private set; } = false;
+   
 
    public int Score
    {
@@ -19,6 +22,8 @@ public class Player
          return total;
       }
    }
+
+   
    public void Hit(Card card) => _hand.Add(card);
 
    public void Stand() => DidStand = true;
@@ -30,6 +35,8 @@ public class Player
    }
 
    public override string ToString() => $"{_hand} => {Score}";
+
+  
 }
 
 
