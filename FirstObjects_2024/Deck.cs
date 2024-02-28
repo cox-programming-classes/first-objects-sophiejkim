@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Security.Cryptography;
 
 namespace FirstObjects_2024;
 
@@ -27,12 +28,14 @@ public class Deck : IEnumerable<Card>
     /// Initialize a new Deck of Cards
     /// </summary>
     public bool IsEmpty => _cards.Count == 0;
+
     public Deck()
     {
         _cards = [];
         foreach (var suit in Suit.AllSuits)
         foreach (var value in Value.AceHighValues)
             _cards.Add(item: new Card(suit, value));
+
     }
 
     public Card DealOne()
@@ -63,9 +66,52 @@ public class Deck : IEnumerable<Card>
     {
         return GetEnumerator();
     }
+   //split the deck 
+
+   private (List<Card>, List<Card>) Split()
+   {
+       var pile1 = new List<Card>();
+       var pile2 = new List<Card>();
+       var count = _cards.Count;
+       for (int i = 0; i < count; i++)
+       {
+           if (i % 2 == 0)
+           {
+               pile1.Add(_cards[0]);
+               _cards.RemoveAt(0);
+           }
+       }
+
+       return (pile1, pile2); 
+   }
+    
+    
+    
+
+    public void InsertRandomly(Card card)
+    {
+        var n = RNG.Next(_cards.Count);
+        _cards.Insert(n, card);
+    }
+
+    private static readonly Random RNG = new();
+    
+    public void InsertRandomly(IEnumerable<Card> cards)
+    {
+        foreach (var card in cards)
+        {
+            InsertRandomly(card);
+        }
+    }
+    
     //shuffling a deck
     public void Shuffle()
     {
-        IEnumerable<Card> deck2 = _cards;
+        //IEnumerable<Card> deck2 = _cards;
+        var (pile1, pile2) = Split();
+        InsertRandomly(pile1);
+        InsertRandomly(pile2);
+
     }
+    
 }

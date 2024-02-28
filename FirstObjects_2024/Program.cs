@@ -29,9 +29,11 @@ player.Hit( deck.DealOne());
 dealer.Hit( deck.DealOne());
 player.Hit(deck.DealOne());
 
-Console.WriteLine($"Player : {player}");
+
 while (!player.DidStand)
 {
+    Console.WriteLine($"Player : {player}");
+
     if (dealer.Score < 18)
         dealer.Hit(deck.DealOne());
     else dealer.Stand();
@@ -43,4 +45,5 @@ while (!player.DidStand)
         player.Stand();
     else Console.WriteLine("Mmmm... wat?");
 }
+
 
